@@ -32,12 +32,14 @@ Eigene Uploads erfordern immer eine menschliche Prüfung. Der Abweichungsindex i
 
 <table>
 <tr>
-<td width="50%"><a href="assets/history-desktop.png"><img src="assets/history-desktop.png" alt="Prüfarchiv mit Modellergebnis, Abweichungsindex und menschlicher Bewertung" /></a></td>
-<td width="50%"><a href="assets/evaluation-desktop.png"><img src="assets/evaluation-desktop.png" alt="Modellvalidierung mit Klassifikationsmatrix, Vergleichsverfahren und Beleuchtungsprüfung" /></a></td>
-</tr>
-<tr>
-<td><strong>PRÜFARCHIV</strong><br />Gespeicherte Prüfungen filtern und wieder öffnen. Die ursprüngliche Modellmessung bleibt bei jeder ergänzten Bewertung erhalten.</td>
-<td><strong>MODELLVALIDIERUNG</strong><br />Festgelegter Modellstand, getrennte Datenmengen, Vergleichsverfahren und Lichtprüfungen direkt in der Anwendung.</td>
+<td width="50%" valign="top">
+<strong>PRÜFARCHIV</strong><br />Gespeicherte Prüfungen filtern und wieder öffnen. Die ursprüngliche Modellmessung bleibt bei jeder ergänzten Bewertung erhalten.<br /><br />
+<a href="assets/history-desktop.png"><img src="assets/history-desktop.png" alt="Prüfarchiv mit Modellergebnis, Abweichungsindex und menschlicher Bewertung" /></a>
+</td>
+<td width="50%" valign="top">
+<strong>MODELLVALIDIERUNG</strong><br />Festgelegter Modellstand, getrennte Datenmengen, Vergleichsverfahren und Lichtprüfungen direkt in der Anwendung.<br /><br />
+<a href="assets/evaluation-desktop.png"><img src="assets/evaluation-desktop.png" alt="Modellvalidierung mit Klassifikationsmatrix, Vergleichsverfahren und Beleuchtungsprüfung" /></a>
+</td>
 </tr>
 </table>
 

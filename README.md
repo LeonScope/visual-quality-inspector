@@ -32,12 +32,14 @@ Own uploads always require human review. The anomaly index expresses distance re
 
 <table>
 <tr>
-<td width="50%"><a href="assets/history-desktop.png"><img src="assets/history-desktop.png" alt="Inspection archive with model outcome, anomaly index and human assessment" /></a></td>
-<td width="50%"><a href="assets/evaluation-desktop.png"><img src="assets/evaluation-desktop.png" alt="Model validation with a classification matrix, baseline comparison and lighting checks" /></a></td>
-</tr>
-<tr>
-<td><strong>INSPECTION ARCHIVE</strong><br />Filter and reopen stored inspections. Every added assessment preserves the original model measurement.</td>
-<td><strong>MODEL VALIDATION</strong><br />Frozen model state, separate data splits, baseline comparison and lighting checks inside the application.</td>
+<td width="50%" valign="top">
+<strong>INSPECTION ARCHIVE</strong><br />Filter and reopen stored inspections. Every added assessment preserves the original model measurement.<br /><br />
+<a href="assets/history-desktop.png"><img src="assets/history-desktop.png" alt="Inspection archive with model outcome, anomaly index and human assessment" /></a>
+</td>
+<td width="50%" valign="top">
+<strong>MODEL VALIDATION</strong><br />Frozen model state, separate data splits, baseline comparison and lighting checks inside the application.<br /><br />
+<a href="assets/evaluation-desktop.png"><img src="assets/evaluation-desktop.png" alt="Model validation with a classification matrix, baseline comparison and lighting checks" /></a>
+</td>
 </tr>
 </table>
 
