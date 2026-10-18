@@ -1,64 +1,79 @@
-# Scope Vision · Visual Quality Inspector
+![Scope Vision — industrielle Bildprüfung von LeonScope. Vom Prüfbild zur dokumentierten Entscheidung.](assets/cover.png)
 
-[English](README.md) · **Deutsch**
+**PRODUKTVORSTELLUNG / 01** &nbsp; · &nbsp; **Deutsch** / [English](README.md) &nbsp; · &nbsp; [Fallstudie](docs/CASE-STUDY.de.md) &nbsp; · &nbsp; [Prüfergebnisse](docs/VERIFICATION.de.md)
 
-**Lokale Bildprüfung mit berechneten Abweichungsmarkierungen und nachvollziehbarer menschlicher Bewertung.** Von LeonScope mit KI-Unterstützung als eigenständiges Portfolio-Projekt entwickelt.
+# Scope Vision
 
-Scope Vision prüft eine fiktive Platte auf Kratzer und fehlende Bohrungen. Ein tatsächliches Bildmodell ist mit einem bedienbaren Arbeitsablauf verbunden: Bild prüfen, markierte Bereiche ansehen, menschliche Bewertung dokumentieren und Prüfbericht exportieren.
+### Optische Prüfung. Sichtbare Abweichungen. Dokumentierte Entscheidungen.
 
-**Dieses Repository enthält ausschließlich die Präsentation. Anwendungscode, Trainings-, Kalibrierungs- und Testdaten sowie Modellgewichte und gelernte Parameter bleiben privat.** Die Screenshots verwenden gesondert erzeugte Präsentationsbeispiele. Für das eigene Material wird keine Open-Source- oder Creative-Commons-Lizenz erteilt; siehe [Rechtehinweis](RIGHTS.md).
+Eine lokale Prüfkonsole für eine fiktive Metallplatte: Das Bildmodell untersucht Kratzer und fehlende Bohrungen, markiert auffällige Regionen und übergibt das Ergebnis an die menschliche Sichtprüfung. Von **LeonScope** mit KI-Unterstützung als eigenständiges Portfolio-Projekt entwickelt.
 
-![Scope Vision: Prüfstation mit berechneter Abweichungsmarkierung und dokumentierter Sichtprüfung](assets/inspection-desktop.png)
+| ANWENDUNGSBEREICH | PRÜFAUFBAU | PROJEKTSTATUS |
+| :--- | :--- | :--- |
+| Bildgestützte Qualitätsprüfung | Synthetische Platte · feste Perspektive | Funktionierender lokaler Prototyp |
 
-*Fehlende Bohrung in einem synthetischen Präsentationsbeispiel. Die farbige Markierung wird aus dem Bild berechnet; die menschliche Bewertung wird getrennt vom Modellergebnis gespeichert.*
+**Öffentlich ist ausschließlich diese Präsentation.** Anwendungscode, Trainings-/Kalibrierungs-/Testdaten, Modellgewichte und gelernte Parameter bleiben privat. Es wird keine Open-Source- oder Creative-Commons-Lizenz für das eigene Material erteilt. [Rechtehinweis](RIGHTS.md).
 
-## Der Arbeitsablauf
+---
 
-- Synthetische Beispiele oder ein lokal hochgeladenes PNG-/JPEG-Bild prüfen.
-- Originalbild und ungefähre Abweichungsmarkierung vergleichen.
-- Ergebnisse als **unauffällig**, **auffällig** oder **manuell prüfen** unterscheiden.
-- Menschliche Bewertungen ergänzen, ohne die ursprüngliche Modellmessung zu verändern.
-- Lokalen Prüfverlauf wieder öffnen und Berichte als JSON oder CSV exportieren.
-- Die Auswertung des festgelegten Modellstands und die Lichtprüfungen direkt in der Anwendung ansehen.
+## 01 / Der Bildarbeitsplatz
 
-Eigene Uploads erfordern immer eine menschliche Prüfung, weil ihre Bildverteilung nicht validiert wurde. Der Abweichungsindex beschreibt einen Abstand relativ zu einer kalibrierten Grenze. Er ist keine Wahrscheinlichkeit und keine Freigabe für die Fertigung.
+![Industrielle Scope-Vision-Prüfkonsole: Original, berechnete Abweichungskarte, Messwert und Sichtprüfung](assets/inspection-desktop.png)
 
-## Messung an einer bewusst begrenzten Aufgabe
+**Gezeigter Prüffall: fehlende Bohrung.** Das Originalbild und die berechnete Abweichungskarte stehen direkt nebeneinander. Rechts sind Messwert und menschliche Bewertung getrennt angeordnet; darunter bleibt die Entscheidung im Prüfprotokoll nachvollziehbar. Das Bild stammt aus dem separaten Präsentationssatz.
 
-Der getrennte Testsatz bei Standardlicht enthält **180 synthetische Szenen**: 60 fehlerfreie Platten, 60 mit Kratzern und 60 mit fehlenden Bohrungen. Die Entscheidungsgrenze wurde vor diesem Test festgelegt.
+| 01 · Bildeingang | 02 · Modellauswertung | 03 · Sichtprüfung |
+| :--- | :--- | :--- |
+| Synthetisches Beispiel oder lokales PNG/JPEG auswählen. Beleuchtung als Prüfvariante ändern. | Abweichungskarte berechnen, Index anzeigen und Aufnahmebedingungen berücksichtigen. | i. O., n. i. O. oder weitere Prüfung dokumentieren. Bericht als JSON/CSV exportieren. |
 
-| Verfahren | Erkannte Fehler | Übersehene Fehler | Fehlalarme bei fehlerfreien Bildern |
-| --- | ---: | ---: | ---: |
-| Vortrainierte CNN-Merkmale + gelernte Bildverteilungen | 120 / 120 | 0 | 0 / 60 |
-| Einfacher Grauwert-Referenzvergleich | 117 / 120 | 3 | 0 / 60 |
+Eigene Uploads erfordern immer eine menschliche Prüfung. Der Abweichungsindex ist ein Abstand relativ zur kalibrierten Grenze; er ist keine Wahrscheinlichkeit und keine Freigabe für die Fertigung. Die Markierung zeigt Regionen ungefähr an, keine vermessene Fehlerkontur.
 
-Diese Beobachtungen gelten für den eigenen synthetischen Bildgenerator. Daraus folgen weder eine zugesicherte Leistung an realen Fertigungsbildern noch eine allgemeine Überlegenheit gegenüber einfacheren Verfahren. [Vollständige Nachweise und Grenzen](docs/VERIFICATION.de.md).
+## 02 / Prüfarchiv und Modellvalidierung
 
-## Technischer Nachweis
-
-**46 automatisierte Anwendungs-/Modellprüfungen und acht Browserabläufe in einer frischen lokalen Kopie bestanden**, mit neu installierten, festgeschriebenen Abhängigkeiten. Das versiegelte private Modellpaket wurde übernommen und geprüft; bei dieser Kontrolle wurde es nicht neu trainiert. Alle **436 Bildprüfsummen** stimmten überein, und die **180 Testvorhersagen** reproduzierten die dokumentierten Gesamtergebnisse.
-
-Python · FastAPI · PyTorch/TorchVision · React · TypeScript · SQLite · pytest · Playwright.
-
-Der Detektor verwendet unveränderte vortrainierte ResNet18-Merkmale und lokal angepasste Gauß-Verteilungen für Bildbereiche, angelehnt an PaDiM. Es wird weder ein Basismodell von Grund auf trainiert noch das CNN nachtrainiert. [Verfahren und Umsetzungsentscheidungen](docs/CASE-STUDY.de.md).
-
-## Weitere Ansichten
-
-![Lokaler Prüfverlauf mit getrennten Modellergebnissen und menschlichen Bewertungen](assets/history-desktop.png)
+<table>
+<tr>
+<td width="50%"><a href="assets/history-desktop.png"><img src="assets/history-desktop.png" alt="Prüfarchiv mit Modellergebnis, Abweichungsindex und menschlicher Bewertung" /></a></td>
+<td width="50%"><a href="assets/evaluation-desktop.png"><img src="assets/evaluation-desktop.png" alt="Modellvalidierung mit Klassifikationsmatrix, Vergleichsverfahren und Beleuchtungsprüfung" /></a></td>
+</tr>
+<tr>
+<td><strong>PRÜFARCHIV</strong><br />Gespeicherte Prüfungen filtern und wieder öffnen. Die ursprüngliche Modellmessung bleibt bei jeder ergänzten Bewertung erhalten.</td>
+<td><strong>MODELLVALIDIERUNG</strong><br />Festgelegter Modellstand, getrennte Datenmengen, Vergleichsverfahren und Lichtprüfungen direkt in der Anwendung.</td>
+</tr>
+</table>
 
 <details>
-<summary>Modellnachweise und Smartphone-Ablauf</summary>
+<summary><strong>Mobile Ansicht öffnen</strong> — derselbe Prüfablauf bei 390 Pixeln Breite</summary>
 
-![Modellnachweise, Vergleichsverfahren und gepaarte Lichtprüfungen](assets/evaluation-desktop.png)
+Original, Abweichungskarte, Messwert und Bewertung folgen auf dem Smartphone untereinander. Der Ablauf wurde ohne horizontales Überlaufen geprüft.
 
-<img src="assets/inspection-mobile.png" width="350" alt="Scope Vision: Bildprüfung und menschliche Bewertung in einer 390 Pixel breiten Smartphone-Ansicht" />
+<img src="assets/inspection-mobile.png" width="340" alt="Mobile Scope-Vision-Prüfkonsole mit Bildanalyse, menschlicher Bewertung und Protokoll" />
 
 </details>
 
-## Einordnung und Grenzen
+## 03 / Technisches Datenblatt
 
-Dieses eigenständige Projekt verbindet LeonScopes Erfahrung in Robotik und kameragestützter Qualitätsprüfung mit einer neuen lokalen Anwendung. Es enthält keine Arbeitgeberbilder, Kundendaten, industriellen Zeichnungen oder früheren Arbeitgeberquellcode. Eine Kamera, ein Roboter oder eine Fertigungslinie sind nicht angebunden.
+| Merkmal | Umsetzung und beobachteter Stand |
+| :--- | :--- |
+| Bildmodell | Unveränderte vortrainierte ResNet18-Merkmale + lokal angepasste Gauß-Verteilungen für Bildbereiche; angelehnt an PaDiM |
+| Lern- und Kalibrierungsdaten | 160 fehlerfreie Lernbilder · 90 Kalibrierungsbilder |
+| Getrennter Test | 180 synthetische Szenen: 60 fehlerfrei, 60 Kratzer, 60 fehlende Bohrung |
+| Modell bei Standardlicht | **120 / 120 Fehler erkannt · 0 / 60 Fehlalarme** |
+| Grauwert-Referenzvergleich | **117 / 120 Fehler erkannt · 3 übersehen · 0 / 60 Fehlalarme** |
+| Verifikation | **46 Anwendungs-/Modellprüfungen + 8 Browserabläufe bestanden** |
+| Wiederholbarkeit | **436 Bildprüfsummen bestätigt · 180 Testvorhersagen reproduziert** |
+| Anwendung | Python · FastAPI · PyTorch/TorchVision · React · TypeScript · SQLite |
+| Gestaltung | Industrielle Prüfkonsole: Graphit, Stahlgrau, Signalorange und funktionale Ergebnisfarben |
 
-Die Anwendung ist ein funktionierender lokaler Prototyp. Sie ist kein gehosteter Dienst und keine industriell abgenommene Prüfanlage. Dieses öffentliche Repository enthält Dokumentation und ausgewählte Bildschirmansichten; es stellt kein ausführbares Paket, keinen öffentlichen Trainingsdatensatz, keinen Modelldownload und keine öffentliche Anwendungs-CI bereit.
+Die Messwerte gelten für den eigenen synthetischen Beispielsatz. Sie belegen keine Zuverlässigkeit an realen Fertigungslinien und keine allgemeine Überlegenheit gegenüber einfacheren Verfahren. Das CNN wird nicht nachtrainiert; Lernen bedeutet hier die Anpassung normaler Merkmalsverteilungen. [Messverfahren, Lichtvarianten und Grenzen](docs/VERIFICATION.de.md).
 
-[Fallstudie](docs/CASE-STUDY.de.md) · [Prüfergebnisse](docs/VERIFICATION.de.md) · [Rechtehinweis](RIGHTS.md) · [LeonScope](https://github.com/LeonScope)
+### Gestaltungs- und Engineering-Entscheidungen
+
+Die Bildarbeitsfläche bildet das Zentrum. Eine horizontale Werkzeugleiste, ein zustandsabhängiger Prüfablauf und klare Messwertfelder unterstützen die Bedienung. Dokumentierte Oberflächen von Cognex, MVTec und SensoPart dienten als Branchenreferenzen; die Gestaltung und das Titelmotiv sind eigenständig. [Gestaltungsreferenzen und Umsetzung](docs/DESIGN-NOTES.md).
+
+Das Projekt knüpft an LeonScopes Erfahrung mit Robotik und kameragestützter Qualitätsprüfung an. Es verwendet keine Arbeitgeberbilder, Kundendaten, industriellen Zeichnungen oder früheren Arbeitgeberquellcode. Eine Kamera, ein Roboter oder eine Fertigungslinie sind nicht angebunden. Es gibt kein öffentliches Deployment, kein ausführbares Paket, keinen Datensatz-/Modelldownload und keine öffentliche Anwendungs-CI.
+
+---
+
+**LEONSCOPE / ENGINEERING PORTFOLIO**
+
+[Fallstudie](docs/CASE-STUDY.de.md) · [Prüfergebnisse](docs/VERIFICATION.de.md) · [Gestaltung](docs/DESIGN-NOTES.md) · [Rechtehinweis](RIGHTS.md) · [Profil](https://github.com/LeonScope)

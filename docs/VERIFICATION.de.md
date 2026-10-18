@@ -6,17 +6,19 @@ Lokal beobachtet am **18. Oktober 2026**. Die Prüfungen wurden im Rahmen der En
 
 ## Prüfung der Anwendung
 
+Die industrielle Oberflächenrevision wurde erneut in der separaten lokalen Prüfkopie geprüft. Der Quellstand wurde vom zuvor verifizierten Commit vorgezogen; Abhängigkeiten wurden weder ergänzt noch geändert. Dieselben 46 Python-Prüfungen und acht Browserabläufe liefen erneut, einschließlich Zustandsprüfungen des Ablaufstreifens. Modell- und Auswertungsartefakte behielten ihre ursprünglichen Prüfsummen. Die frühere Prüfung nach frischer Installation bleibt als historischer Nachweis bestehen; für diese Revision wurden die Abhängigkeiten nicht erneut installiert.
+
 | Prüfung | Beobachtetes Ergebnis |
 | --- | --- |
-| Frische lokale Git-Kopie | Privater Quellstand `2e036c5484294ab6644c3d97edbcbd4a71bc545d` |
-| Installation der Abhängigkeiten | Neue Python-Umgebung und saubere Node-Installation aus festgeschriebenen Dateien abgeschlossen |
+| Separate lokale Prüfkopie | Privater Quellstand `2c12b09cb562f324ae9d19d59ca191712811e395` |
+| Installation der Abhängigkeiten | Zuvor sauber installierte Umgebungen wiederverwendet; Abhängigkeitsdateien bei der Oberflächenrevision unverändert |
 | Typprüfung und Erstellung der fertigen Oberfläche | Bestanden |
 | Python-Prüfungen für Anwendung und Modell | **46 bestanden** |
 | Browserabläufe | **8 bestanden**, ohne Wiederholungsversuche im abschließenden Lauf |
 | Datenintegrität | **436 von 436 Bildprüfsummen stimmen überein** |
 | Wiederholung mit festgelegtem Modellstand | **180 Testvorhersagen reproduziert**; Gesamtergebnisse von Modell und Vergleichsverfahren stimmen überein |
 | Modellstand bei der Wiederholung | Vorhandene private Artefakte geprüft; kein neues Training und keine geänderte Entscheidungsgrenze |
-| Bildschirmansichten | Aus der frischen Kopie aufgenommen; ausschließlich gesonderte Präsentationsbeispiele |
+| Bildschirmansichten | Aus dem geprüften neuen Stand der separaten Kopie; ausschließlich Präsentationsbeispiele |
 
 Umgebung: macOS 26.6 auf arm64, Python 3.12.14, Node.js 24.19.0, Chrome 155.0.8059.84. Die Modellberechnung verwendet die CPU mit zwei PyTorch-Threads. Die Paketversionen sind privat festgehalten, darunter PyTorch 2.14.1 und TorchVision 0.29.1.
 
@@ -43,7 +45,7 @@ Modellversion: `scope-vision-1.0` · Modellkennung: `199b18fad8e11f73`.
 
 Unveränderte vortrainierte ResNet18-Merkmale bilden die Eingabe eines kompakten räumlichen Gauß-Modells für Bildbereiche. Die Kalibrierung maximiert die ausgewogene Klassifikationsgenauigkeit und bevorzugt bei Gleichstand weniger übersehene Fehler, danach die höhere Grenze. Die ermittelte Rohgrenze beträgt **12,225147247314453**. Höhere Bildmesswerte gelten als auffällig; der angezeigte Index ist Messwert geteilt durch diese Grenze. Index 0,85–1,15, bekannte Aufnahmeprobleme oder ein eigener Upload führen zur manuellen Prüfung.
 
-Die Grenze stand vor der Testauswertung fest. Der gespeicherte Bericht ist an Modellmetadaten und Artefaktprüfsummen gebunden. Training/Auswertung verweigern das Überschreiben des vorhandenen angepassten Stands/Berichts. Die Kontrolle in der frischen Kopie wiederholt den festgelegten Stand; sie ist kein zweites Trainingsexperiment.
+Die Grenze stand vor der Testauswertung fest. Der gespeicherte Bericht ist an Modellmetadaten und Artefaktprüfsummen gebunden. Training/Auswertung verweigern das Überschreiben des vorhandenen angepassten Stands/Berichts. Die Kontrolle in der separaten Prüfkopie wiederholt den festgelegten Stand; sie ist kein zweites Trainingsexperiment.
 
 ## Ergebnisse bei Standardlicht
 
@@ -73,6 +75,6 @@ Bei der ursprünglichen lokalen CPU-Auswertung betrug die reine Modellberechnung
 
 ## Grenze der Veröffentlichung
 
-Dieses Repository enthält zweisprachige Dokumentation, vier ausgewählte Bildschirmansichten und einen Rechtehinweis. Es hat eine eigene Präsentationshistorie. Anwendungscode, fertiger Anwendungsbuild, ausführbare Pakete, Trainings-/Kalibrierungs-/Testbilder, Modellparameter, Gewichte, private Protokolle und Kunden-/Arbeitgeberdaten sind nicht enthalten. Die Plattenbilder innerhalb der Screenshots stammen ausschließlich aus den Präsentationsbeispielen.
+Dieses Repository enthält zweisprachige Dokumentation, ein eigenes Titelmotiv, vier ausgewählte Bildschirmansichten und einen Rechtehinweis. Es hat eine eigene Präsentationshistorie. Anwendungscode, fertiger Anwendungsbuild, ausführbare Pakete, Trainings-/Kalibrierungs-/Testbilder, Modellparameter, Gewichte, private Protokolle und Kunden-/Arbeitgeberdaten sind nicht enthalten. Die Plattenbilder innerhalb der Screenshots stammen ausschließlich aus den Präsentationsbeispielen.
 
 Es gibt kein öffentliches Deployment, keine öffentliche Anwendungs-CI, keine Fertigungsintegration und keinen industriellen Abnahmenachweis. [Fallstudie](CASE-STUDY.de.md) · [Rechtehinweis](../RIGHTS.md).

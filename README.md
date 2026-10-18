@@ -1,64 +1,79 @@
-# Scope Vision · Visual Quality Inspector
+![Scope Vision — visual quality inspection by LeonScope. From image to documented decision.](assets/cover.png)
 
-**English** · [Deutsch](README.de.md)
+**PRODUCT BRIEF / 01** &nbsp; · &nbsp; **English** / [Deutsch](README.de.md) &nbsp; · &nbsp; [Case study](docs/CASE-STUDY.md) &nbsp; · &nbsp; [Verification](docs/VERIFICATION.md)
 
-**Local visual inspection with model-generated anomaly maps and a traceable human review.** Built by LeonScope with AI assistance as an independent portfolio project.
+# Scope Vision
 
-Scope Vision inspects a fictional plate for scratches and missing holes. It connects an actual image model to a usable workflow: inspect an image, examine the marked areas, record a human assessment, and export the inspection report.
+### Visual inspection. Visible anomalies. Recorded decisions.
 
-**Presentation repository only. Application source, training/calibration/test data, model weights and fitted parameters remain private.** The screenshots use separately generated presentation examples. No open-source or Creative Commons license is granted for original material; see [Rights](RIGHTS.md).
+A local inspection console for a fictional metal plate. The image model checks scratches and missing holes, highlights anomalous regions and hands the result over to human review. Built by **LeonScope** with AI assistance as an independent portfolio project.
 
-![Scope Vision inspection station with an actual anomaly map and a recorded human assessment](assets/inspection-desktop.png)
+| APPLICATION | INSPECTION SETUP | PROJECT STATUS |
+| :--- | :--- | :--- |
+| Image-based quality inspection | Synthetic plate · fixed perspective | Functional local prototype |
 
-*A missing hole in a synthetic presentation example. The colored overlay is computed from the image; the human assessment is stored separately from the model result.*
+**This repository publishes the presentation only.** Application source, training/calibration/test data, model weights and fitted parameters remain private. No open-source or Creative Commons license is granted for the original material. [Rights notice](RIGHTS.md).
 
-## The workflow
+---
 
-- Inspect synthetic examples or a local PNG/JPEG upload.
-- Compare the original image with an approximate anomaly map.
-- Distinguish **unremarkable**, **anomalous** and **manual review required** outcomes.
-- Append human assessments without changing the original model measurement.
-- Reopen the local inspection history and export JSON or CSV reports.
-- Examine the frozen model's evaluation and lighting checks inside the application.
+## 01 / The image workspace
 
-Every own upload requires human review, because its distribution has not been validated. The anomaly index is a distance relative to a calibrated threshold, not a probability or manufacturing acceptance decision.
+![Industrial Scope Vision console showing the original image, computed anomaly map, measured score and human review](assets/inspection-desktop.png)
 
-## Measured on a deliberately narrow task
+**Inspection shown: a missing hole.** The original image and computed anomaly map sit side by side. The measured score and human assessment occupy distinct panels on the right, with the decision preserved in the inspection record below. This image comes from the separate presentation split.
 
-The fixed standard-light test contains **180 separate synthetic scenes**: 60 normal plates, 60 with scratches and 60 with missing holes. The decision threshold was selected before this test.
+| 01 · Image input | 02 · Model analysis | 03 · Human review |
+| :--- | :--- | :--- |
+| Choose a synthetic example or local PNG/JPEG. Change lighting as an inspection variant. | Compute the anomaly map, display the index and account for capture conditions. | Record acceptance, rejection or further review. Export the report as JSON/CSV. |
 
-| Method | Detected defects | Missed defects | False alarms on normal images |
-| --- | ---: | ---: | ---: |
-| Frozen CNN features + fitted patch distributions | 120 / 120 | 0 | 0 / 60 |
-| Simple grayscale reference comparison | 117 / 120 | 3 | 0 / 60 |
+Own uploads always require human review. The anomaly index expresses distance relative to a calibrated threshold; it is not a probability or a manufacturing release. The overlay roughly indicates regions, not a measured defect boundary.
 
-These are observations on the project's own synthetic generator. They do not establish performance on real factory images or general superiority over simpler methods. [Full verification and limitations](docs/VERIFICATION.md).
+## 02 / Inspection archive and model validation
 
-## Engineering evidence
-
-**46 automated application/model checks and 8 browser workflows passed in a fresh local copy**, with independently installed pinned dependencies. The sealed private model bundle was reused and verified; it was not retrained during this check. All **436 image hashes** matched, and the **180 held-out predictions** reproduced the recorded aggregate results.
-
-Python · FastAPI · PyTorch/TorchVision · React · TypeScript · SQLite · pytest · Playwright.
-
-The detector uses frozen pretrained ResNet18 features and locally fitted Gaussian patch distributions inspired by PaDiM. It does not train a foundation model or fine-tune the CNN. [Method and implementation decisions](docs/CASE-STUDY.md).
-
-## More views
-
-![Local inspection history with separate model outcomes and human assessments](assets/history-desktop.png)
+<table>
+<tr>
+<td width="50%"><a href="assets/history-desktop.png"><img src="assets/history-desktop.png" alt="Inspection archive with model outcome, anomaly index and human assessment" /></a></td>
+<td width="50%"><a href="assets/evaluation-desktop.png"><img src="assets/evaluation-desktop.png" alt="Model validation with a classification matrix, baseline comparison and lighting checks" /></a></td>
+</tr>
+<tr>
+<td><strong>INSPECTION ARCHIVE</strong><br />Filter and reopen stored inspections. Every added assessment preserves the original model measurement.</td>
+<td><strong>MODEL VALIDATION</strong><br />Frozen model state, separate data splits, baseline comparison and lighting checks inside the application.</td>
+</tr>
+</table>
 
 <details>
-<summary>Model evidence and mobile workflow</summary>
+<summary><strong>Open the mobile view</strong> — the same workflow at 390 pixels wide</summary>
 
-![Model evidence, baseline comparison and paired lighting observations](assets/evaluation-desktop.png)
+The original image, anomaly map, score and assessment follow vertically on a phone. The workflow was checked without horizontal overflow. Application screenshots show the German interface.
 
-<img src="assets/inspection-mobile.png" width="350" alt="Scope Vision inspection and human review on a 390-pixel mobile viewport" />
+<img src="assets/inspection-mobile.png" width="340" alt="Mobile Scope Vision console with image analysis, human review and inspection record" />
 
 </details>
 
-## Context and boundaries
+## 03 / Technical specification
 
-This independent project connects LeonScope's experience in robotics and camera-based quality inspection with a new local application. It contains no employer images, client data, industrial drawings or prior employer code. It does not connect to a camera, robot or production line.
+| Item | Implementation and observed result |
+| :--- | :--- |
+| Image model | Frozen pretrained ResNet18 features + locally fitted Gaussian patch distributions; inspired by PaDiM |
+| Fitting and calibration | 160 normal fitting images · 90 calibration images |
+| Held-out test | 180 synthetic scenes: 60 normal, 60 scratches, 60 missing holes |
+| Model at standard lighting | **120 / 120 defects detected · 0 / 60 false alarms** |
+| Grayscale reference baseline | **117 / 120 defects detected · 3 missed · 0 / 60 false alarms** |
+| Verification | **46 application/model checks + 8 browser workflows passed** |
+| Reproducibility | **436 image hashes verified · 180 test predictions reproduced** |
+| Application | Python · FastAPI · PyTorch/TorchVision · React · TypeScript · SQLite |
+| Interface | Industrial inspection console: graphite, steel gray, signal orange and functional outcome colors |
 
-The application is a working local prototype, not a hosted service or industrially accepted inspection system. This public repository provides documentation and selected screenshots; it does not provide a runnable package, public training dataset, model download or public application CI.
+Results apply to the project's own synthetic sample set. They do not establish reliability on real production lines or general superiority over simpler methods. The CNN is not fine-tuned; learning here means fitting normal-feature distributions. [Evaluation method, lighting variants and limits](docs/VERIFICATION.md).
 
-[Case study](docs/CASE-STUDY.md) · [Verification](docs/VERIFICATION.md) · [Rights](RIGHTS.md) · [LeonScope](https://github.com/LeonScope)
+### Design and engineering decisions
+
+The image workspace is central. A horizontal toolbar, a state-aware process strip and distinct measurement fields support the workflow. Documented interfaces from Cognex, MVTec and SensoPart informed the industry research; the design and cover illustration are original. [Design references and implementation](docs/DESIGN-NOTES.md).
+
+The project draws on LeonScope's experience with robotics and camera-based quality inspection. It uses no employer images, customer records, industrial drawings or previous employer source code. No camera, robot or production line is connected. There is no public deployment, executable package, dataset/model download or public application CI.
+
+---
+
+**LEONSCOPE / ENGINEERING PORTFOLIO**
+
+[Case study](docs/CASE-STUDY.md) · [Verification](docs/VERIFICATION.md) · [Design](docs/DESIGN-NOTES.md) · [Rights notice](RIGHTS.md) · [Profile](https://github.com/LeonScope)

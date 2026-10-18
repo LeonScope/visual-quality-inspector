@@ -6,17 +6,19 @@ Observed locally on **18 October 2026**. These are author-run checks, not indepe
 
 ## Application verification
 
+The industrial interface revision was checked again in the separate local checkout. Its source was fast-forwarded from the previously verified commit; no dependencies were added or changed. The same 46 Python checks and eight browser workflows were rerun, including process-strip state checks. The frozen model and evaluation artifacts retained their original checksums. The earlier fresh-install verification remains historical evidence; this revision did not repeat dependency installation.
+
 | Check | Observed result |
 | --- | --- |
-| Fresh local Git copy | Private source commit `2e036c5484294ab6644c3d97edbcbd4a71bc545d` |
-| Dependency installation | New Python environment and clean Node installation from pinned files completed |
+| Separate local verification checkout | Private source commit `2c12b09cb562f324ae9d19d59ca191712811e395` |
+| Dependency installation | Previously clean-installed environments reused; dependency files unchanged for the interface revision |
 | Type checking and production frontend build | Passed |
 | Python application/model checks | **46 passed** |
 | Browser workflows | **8 passed**, no retries |
 | Data integrity | **436 of 436 image hashes matched** |
 | Frozen-model replay | **180 test predictions reproduced**; model and baseline aggregate metrics matched |
 | Model state during replay | Existing private artifacts verified; no refitting or threshold changes |
-| Screenshots | Captured from the fresh copy; separately seeded presentation examples only |
+| Screenshots | Captured from the verified revision in the separate checkout; presentation examples only |
 
 Environment: macOS 26.6 on arm64, Python 3.12.14, Node.js 24.19.0, Chrome 155.0.8059.84. Model inference uses CPU with two PyTorch threads. Dependency versions are recorded privately, including PyTorch 2.14.1 and TorchVision 0.29.1.
 
@@ -43,7 +45,7 @@ Model version: `scope-vision-1.0` · model identifier: `199b18fad8e11f73`.
 
 Frozen pretrained ResNet18 features feed a compact spatial Gaussian patch model. The calibration rule maximizes balanced accuracy, then favors fewer missed defects and then the higher threshold. The resulting raw threshold is **12.225147247314453**. Image scores above it are anomalous; the UI's index is score divided by this threshold. Index 0.85–1.15, known capture-quality issues or any own upload require manual review.
 
-The threshold was fixed before held-out evaluation. The stored report is bound to the model metadata and artifact checksums. Training/evaluation refuse to overwrite the existing fitted state/report. The fresh-copy check replays the frozen state; it is not a second training experiment.
+The threshold was fixed before held-out evaluation. The stored report is bound to the model metadata and artifact checksums. Training/evaluation refuse to overwrite the existing fitted state/report. The verification-checkout replay uses the frozen state; it is not a second training experiment.
 
 ## Standard-light results
 
@@ -73,6 +75,6 @@ On the original local CPU evaluation, per-image model calculation measured **12.
 
 ## Public/private boundary
 
-This repository contains bilingual documentation, four selected screenshots and a rights notice. It has a separate presentation history. It does not contain application source, an application build, executable packages, training/calibration/test images, model parameters, weights, private logs or customer/employer data. The screenshots' plate images come exclusively from the presentation examples.
+This repository contains bilingual documentation, an original cover illustration, four selected screenshots and a rights notice. It has a separate presentation history. It does not contain application source, an application build, executable packages, training/calibration/test images, model parameters, weights, private logs or customer/employer data. The screenshots' plate images come exclusively from the presentation examples.
 
 There is no public deployment, public application CI, factory integration or industrial acceptance evidence. [Case study](CASE-STUDY.md) · [Rights](../RIGHTS.md).

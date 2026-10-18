@@ -44,6 +44,10 @@ Die Aufnahmeprüfung betrachtet ein unerwartetes Seitenverhältnis, Helligkeit u
 
 ![Gespeicherte Prüfungen und menschliche Bewertungen](../assets/history-desktop.png)
 
+## Industrielle Bedienoberfläche
+
+Eine horizontale Werkzeugleiste führt zu Prüfstation, Archiv und Modellvalidierung. Original und Abweichungskarte liegen auf einer dunklen Bildarbeitsfläche; Messwert und Sichtprüfung bleiben separat. Ein zustandsabhängiger Ablaufstreifen macht den Weg vom Bildeingang zur dokumentierten Entscheidung sichtbar. Graphit, Stahlgrau und Signalorange bilden eine eigenständige industrielle Gestaltung. [Herstellerreferenzen und Gestaltungsentscheidungen](DESIGN-NOTES.md).
+
 ## Entscheidungen für die Auswertung
 
 Training, Kalibrierung, Test und Präsentation verwenden unterschiedliche Szenenkennungen desselben Generators. Nur fehlerfreie Bilder passen die Verteilungen an. Die Kalibrierung legt die Grenzen des Modells und des Vergleichsverfahrens fest. Danach wird der getrennte Test mit dem festgelegten Modellstand ausgewertet. Nach Einsicht in die Ergebnisse fand keine Nachjustierung statt.

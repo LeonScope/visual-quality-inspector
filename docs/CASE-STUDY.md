@@ -44,6 +44,10 @@ Capture checks look for unexpected aspect ratio, brightness and contrast. They c
 
 ![Recorded inspections and human assessments](../assets/history-desktop.png)
 
+## Industrial operator interface
+
+A horizontal toolbar leads to inspection, records and model validation. The original and anomaly map share a dark image workspace; measured score and human review remain separate. A state-aware process strip shows progress from image input to recorded assessment. Graphite, steel gray and signal orange establish an original industrial visual language. [Manufacturer references and design decisions](DESIGN-NOTES.md).
+
 ## Evaluation decisions
 
 Training, calibration, test and presentation use different scene seeds from the same generator. Only normal images fit the distributions. Calibration selects the model and baseline thresholds. The held-out test is then evaluated using the frozen model state. No tuning was performed after viewing its results.

@@ -8,7 +8,7 @@ Applicable statutory rights, GitHub's platform terms and third-party rights rema
 
 The application uses third-party components under their respective licenses. Those licenses are not revoked or replaced by this notice. No dependency packages, client source or real customer data are distributed in this presentation.
 
-Application source, training/calibration/test data, model weights and fitted parameters remain private. Only selected screenshots using separate synthetic presentation examples are included. Upstream pretrained model weights are not claimed as original LeonScope material and are not distributed here.
+Application source, training/calibration/test data, model weights and fitted parameters remain private. An original presentation cover and selected screenshots using separate synthetic presentation examples are included. Upstream pretrained model weights are not claimed as original LeonScope material and are not distributed here.
 
 ---
 
@@ -18,4 +18,4 @@ Dieses Repository dient ausschließlich der Portfolio-Präsentation. **Es wird k
 
 Gesetzliche Rechte, GitHubs Plattformbedingungen und Rechte Dritter bleiben unberührt. Öffentliche GitHub-Repositories können entsprechend den Plattformbedingungen angesehen und innerhalb GitHubs geforkt werden. Dieser Hinweis hebt diese Funktionen nicht auf. Die Lizenzen der verwendeten Drittanbieter-Komponenten gelten weiterhin. Diese Präsentation enthält keine Abhängigkeitspakete, vertraulichen Kundenquellen oder echten Kundendaten.
 
-Anwendungscode, Trainings-/Kalibrierungs-/Testdaten, Modellgewichte und gelernte Parameter bleiben privat. Enthalten sind ausschließlich ausgewählte Screenshots mit gesonderten synthetischen Präsentationsbeispielen. Vortrainierte Gewichte von Drittanbietern werden nicht als eigenes Material von LeonScope beansprucht und hier nicht verbreitet.
+Anwendungscode, Trainings-/Kalibrierungs-/Testdaten, Modellgewichte und gelernte Parameter bleiben privat. Enthalten sind ein eigenes Titelmotiv und ausgewählte Screenshots mit gesonderten synthetischen Präsentationsbeispielen. Vortrainierte Gewichte von Drittanbietern werden nicht als eigenes Material von LeonScope beansprucht und hier nicht verbreitet.
