@@ -4,9 +4,9 @@
 
 # Scope Vision
 
-### Optische Prüfung. Sichtbare Abweichungen. Dokumentierte Entscheidungen.
+### Kratzer und fehlende Bohrungen im Bild erkennen
 
-Eine lokale Prüfkonsole für eine fiktive Metallplatte: Das Bildmodell untersucht Kratzer und fehlende Bohrungen, markiert auffällige Regionen und übergibt das Ergebnis an die menschliche Sichtprüfung. Von **LeonScope** mit KI-Unterstützung als eigenständiges Portfolio-Projekt entwickelt.
+Scope Vision untersucht erzeugte Bilder einer Metallplatte auf Kratzer und fehlende Bohrungen. Neben dem Original zeigt die Anwendung, welche Bildbereiche dem Modell auffallen. Eine Person kann das Ergebnis anschließend bewerten und ihre Entscheidung speichern. Mit diesem Projekt greife ich meine Erfahrung in der kameragestützten Qualitätsprüfung auf; die Anwendung wurde mit KI-Unterstützung neu entwickelt.
 
 | ANWENDUNGSBEREICH | PRÜFAUFBAU | PROJEKTSTATUS |
 | :--- | :--- | :--- |
@@ -20,13 +20,13 @@ Eine lokale Prüfkonsole für eine fiktive Metallplatte: Das Bildmodell untersuc
 
 ![Industrielle Scope-Vision-Prüfkonsole: Original, berechnete Abweichungskarte, Messwert und Sichtprüfung](assets/inspection-desktop.png)
 
-**Gezeigter Prüffall: fehlende Bohrung.** Das Originalbild und die berechnete Abweichungskarte stehen direkt nebeneinander. Rechts sind Messwert und menschliche Bewertung getrennt angeordnet; darunter bleibt die Entscheidung im Prüfprotokoll nachvollziehbar. Das Bild stammt aus dem separaten Präsentationssatz.
+**Im Beispiel fehlt eine Bohrung.** Links steht das Original, daneben die berechnete Abweichungskarte. Rechts lassen sich Messwert und menschliche Bewertung ablesen. Das Protokoll darunter hält beides getrennt fest. Für die Screenshots werden eigene Präsentationsbilder verwendet, die nicht zum Training oder Test gehören.
 
 | 01 · Bildeingang | 02 · Modellauswertung | 03 · Sichtprüfung |
 | :--- | :--- | :--- |
 | Synthetisches Beispiel oder lokales PNG/JPEG auswählen. Beleuchtung als Prüfvariante ändern. | Abweichungskarte berechnen, Index anzeigen und Aufnahmebedingungen berücksichtigen. | i. O., n. i. O. oder weitere Prüfung dokumentieren. Bericht als JSON/CSV exportieren. |
 
-Eigene Uploads erfordern immer eine menschliche Prüfung. Der Abweichungsindex ist ein Abstand relativ zur kalibrierten Grenze; er ist keine Wahrscheinlichkeit und keine Freigabe für die Fertigung. Die Markierung zeigt Regionen ungefähr an, keine vermessene Fehlerkontur.
+Eigene Uploads müssen immer von einer Person geprüft werden. Der Abweichungsindex setzt den Messwert ins Verhältnis zur festgelegten Grenze. Er ist keine Wahrscheinlichkeit und erlaubt keine automatische Fertigungsfreigabe. Auch die Markierung ist nur eine ungefähre Ortsangabe; sie vermisst den Fehler nicht.
 
 ## 02 / Prüfarchiv und Modellvalidierung
 
@@ -68,11 +68,11 @@ Original, Abweichungskarte, Messwert und Bewertung folgen auf dem Smartphone unt
 
 Die Messwerte gelten für den eigenen synthetischen Beispielsatz. Sie belegen keine Zuverlässigkeit an realen Fertigungslinien und keine allgemeine Überlegenheit gegenüber einfacheren Verfahren. Das CNN wird nicht nachtrainiert; Lernen bedeutet hier die Anpassung normaler Merkmalsverteilungen. [Messverfahren, Lichtvarianten und Grenzen](docs/VERIFICATION.de.md).
 
-### Gestaltungs- und Engineering-Entscheidungen
+### Warum die Oberfläche so aufgebaut ist
 
-Die Bildarbeitsfläche bildet das Zentrum. Eine horizontale Werkzeugleiste, ein zustandsabhängiger Prüfablauf und klare Messwertfelder unterstützen die Bedienung. Dokumentierte Oberflächen von Cognex, MVTec und SensoPart dienten als Branchenreferenzen; die Gestaltung und das Titelmotiv sind eigenständig. [Gestaltungsreferenzen und Umsetzung](docs/DESIGN-NOTES.md).
+Original und Auswertung sollen direkt vergleichbar sein. Deshalb nehmen die Bilder den größten Teil der Prüfstation ein; Messwerte und Bewertung stehen daneben. Der Ablaufstreifen zeigt, welche Schritte bereits abgeschlossen sind. Für die Gestaltung wurden dokumentierte Oberflächen von Cognex, MVTec und SensoPart betrachtet. Die [Gestaltungsnotizen](docs/DESIGN-NOTES.md) nennen die Quellen und erklären die Umsetzung.
 
-Das Projekt knüpft an LeonScopes Erfahrung mit Robotik und kameragestützter Qualitätsprüfung an. Es verwendet keine Arbeitgeberbilder, Kundendaten, industriellen Zeichnungen oder früheren Arbeitgeberquellcode. Eine Kamera, ein Roboter oder eine Fertigungslinie sind nicht angebunden. Es gibt kein öffentliches Deployment, kein ausführbares Paket, keinen Datensatz-/Modelldownload und keine öffentliche Anwendungs-CI.
+Scope Vision enthält keine Bilder, Zeichnungen, Daten oder Quelltexte früherer Arbeitgeber oder Kunden. Kamera und Roboter sind nicht angebunden. Die Anwendung läuft lokal; einen öffentlichen Demozugang, Softwaredownload, Datensatz- oder Modelldownload und Anwendungstestlauf auf GitHub gibt es nicht.
 
 ---
 

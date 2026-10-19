@@ -2,13 +2,13 @@
 
 [English](CASE-STUDY.md) · **Deutsch** · [Projekt](../README.de.md)
 
-## Problem und Umfang
+## Die Prüfaufgabe
 
-Eine brauchbare Bildprüfung braucht mehr als einen Modellwert. Die prüfende Person muss sehen, welches Bild untersucht wurde, die Markierung einordnen, unsichere Aufnahmebedingungen erkennen und eine Entscheidung festhalten können, ohne den ursprünglichen Nachweis zu verlieren.
+Scope Vision untersucht Bilder einer fiktiven Metallplatte aus einer festen Perspektive. In den erzeugten Bildern kommen zwei Fehlerarten vor: ein Kratzer und eine fehlende Bohrung. Position, Textur und Helligkeit variieren leicht.
 
-Scope Vision setzt diesen vollständigen Ablauf für eine fiktive Metallplatte in fester Perspektive um. In synthetische Beispiele werden zwei bewusst sichtbare Fehlerarten eingebaut: ein Kratzer und eine fehlende Bohrung. Kleine Änderungen von Position, Textur und Helligkeit verhindern, dass jedes Bild identisch ist. Es handelt sich um eine kontrollierte Demonstration, nicht um eine Sammlung von Fertigungsfotos.
+Die Oberfläche zeigt das Original neben der berechneten Markierung. So kann die prüfende Person den Modellwert mit dem Bild vergleichen und eine eigene Bewertung speichern. Auch Hinweise auf ungünstige Aufnahmebedingungen werden angezeigt.
 
-Das Projekt knüpft an LeonScopes Erfahrung mit Robotik und kameragestützter Qualitätsprüfung an. Es wurde mit KI-Unterstützung neu umgesetzt und verwendet keine Arbeitgebermaterialien oder Kundendaten. Die öffentlichen Nachweise beziehen sich ausschließlich auf diese Umsetzung.
+Das Thema kommt aus meiner Erfahrung mit Robotik und kameragestützter Qualitätsprüfung. Für dieses Projekt wurden Anwendung und Bilder neu erstellt. Fotos aus einer Fertigung, Arbeitgebermaterialien oder Kundendaten werden nicht verwendet.
 
 ## Vom Bild zur dokumentierten Entscheidung
 
@@ -32,9 +32,9 @@ Der Verlauf behält die jüngsten 100 Prüfungen und höchstens 50 Bewertungen j
 
 Die Kameraperspektive ist fest. Daher kann ein räumliches Modell jeden Bildbereich mit normalen Beispielen an derselben Position vergleichen. Die Umsetzung extrahiert unveränderte vortrainierte ResNet18-Merkmale, kombiniert drei Merkmalsstufen und passt regularisierte Gauß-Verteilungen an normale Bildbereiche an. Bei einer Prüfung entstehen aus dem Abstand zu diesen Verteilungen eine Abweichungskarte und ein Bildmesswert.
 
-Der Ansatz orientiert sich am [PaDiM-Verfahren für Bildbereichsverteilungen](https://anomalib.readthedocs.io/en/stable/markdown/guides/reference/models/image/padim.html). Scope Vision verwendet eine eigene kompakte Konfiguration und Auswertung. Es wird weder eine Reproduktion der Veröffentlichung noch ein Anomalib-Benchmark behauptet. Die Merkmalsbasis ist das offizielle [TorchVision-Modell ResNet18 IMAGENET1K_V1](https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.resnet18.html). Das CNN wird nicht nachtrainiert; Lernen bedeutet hier die Anpassung normaler Merkmalsverteilungen.
+Der Ansatz orientiert sich am [PaDiM-Verfahren für Bildbereichsverteilungen](https://anomalib.readthedocs.io/en/stable/markdown/guides/reference/models/image/padim.html). Scope Vision verwendet eine eigene kompakte Konfiguration und Auswertung. Die Umsetzung übernimmt nicht alle Details der Veröffentlichung und ist nicht mit einem Anomalib-Benchmark gleichzusetzen. Die Merkmalsbasis ist das offizielle [TorchVision-Modell ResNet18 IMAGENET1K_V1](https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.resnet18.html). Das CNN wird nicht nachtrainiert; Lernen bedeutet hier die Anpassung normaler Merkmalsverteilungen.
 
-In den Detektor gelangen ausschließlich Bildpixel. Beispielbeschreibungen und synthetische Fehlermasken werden nicht als Eingabe übergeben. Die dargestellte Markierung zeigt auffällige Regionen ungefähr an. Sie ist keine vermessene Fehlerkontur; eine Segmentierungsgenauigkeit wird nicht behauptet.
+In den Detektor gelangen ausschließlich Bildpixel. Beispielbeschreibungen und synthetische Fehlermasken werden nicht als Eingabe übergeben. Die dargestellte Markierung zeigt auffällige Regionen ungefähr an. Wie genau die Markierung die Fehlerkontur trifft, wurde nicht vermessen.
 
 ## Verständliche Entscheidungen in der Oberfläche
 
@@ -46,7 +46,7 @@ Die Aufnahmeprüfung betrachtet ein unerwartetes Seitenverhältnis, Helligkeit u
 
 ## Industrielle Bedienoberfläche
 
-Eine horizontale Werkzeugleiste führt zu Prüfstation, Archiv und Modellvalidierung. Original und Abweichungskarte liegen auf einer dunklen Bildarbeitsfläche; Messwert und Sichtprüfung bleiben separat. Ein zustandsabhängiger Ablaufstreifen macht den Weg vom Bildeingang zur dokumentierten Entscheidung sichtbar. Graphit, Stahlgrau und Signalorange bilden eine eigenständige industrielle Gestaltung. [Herstellerreferenzen und Gestaltungsentscheidungen](DESIGN-NOTES.md).
+Eine horizontale Werkzeugleiste führt zu Prüfstation, Archiv und Modellvalidierung. Original und Abweichungskarte liegen auf einer dunklen Bildarbeitsfläche; Messwert und Sichtprüfung bleiben separat. Der Ablaufstreifen zeigt, ob ein Bild ausgewählt, ausgewertet und bewertet wurde. Die Oberfläche verwendet Graphit, Stahlgrau und Orange. [Herstellerreferenzen und Gestaltungsentscheidungen](DESIGN-NOTES.md).
 
 ## Entscheidungen für die Auswertung
 
@@ -60,10 +60,12 @@ Die Lichtprüfungen verwenden gepaarte Varianten derselben Testszenen. Diese Beo
 
 Python-API und React-Oberfläche laufen ausschließlich lokal. Modellparameter und Bilder bleiben auf dem Rechner. Hochgeladene PNG-/JPEG-Dateien werden nach Dateigröße und Abmessungen begrenzt, dekodiert und von Metadaten befreit. Host-/Herkunftsprüfungen begrenzen Anfragen; gleichzeitig läuft höchstens eine Bildauswertung. Die Oberfläche wird am Desktop und in einer Smartphone-Ansicht geprüft.
 
-Es ist ein Prototyp für eine lokale Person, ohne produktive Benutzerverwaltung, Kameraaufnahme, Robotersteuerung, Betriebsüberwachung oder industrielle Abnahme. Der nächste belastbare Validierungsschritt wäre eine gesondert freigegebene Untersuchung echter Bilder mit kontrollierter Aufnahme, neuen ungesehenen Testchargen und einer passenden Abnahmespezifikation.
+Der Prototyp ist für eine Person am lokalen Rechner gedacht. Benutzerverwaltung für den Produktivbetrieb, Kameraaufnahme, Robotersteuerung und Betriebsüberwachung sind nicht eingebaut; eine industrielle Abnahme hat nicht stattgefunden. Für eine weitere Bewertung wären echte Bilder unter kontrollierten Aufnahmebedingungen, neue Testchargen und festgelegte Abnahmekriterien nötig.
 
-## Beitrag zum Portfolio
+## Mein Anteil und die KI-Unterstützung
 
-Die gezeigte Arbeit umfasst Problemabgrenzung, Spezifikation synthetischer Daten, einen angepassten Anomaliedetektor, Kalibrierung und Vergleichsverfahren, lokale API/Speicherung, einen anpassungsfähigen Prüfablauf, automatisierte Prüfungen und zweisprachige Dokumentation. Die Ergebnisse sind lokale Beobachtungen. Ein Kundenauftrag, eine reale Einführung in der Fertigung oder eine autonome Fertigungsentscheidung werden damit nicht behauptet.
+Ich habe das Thema für mein Portfolio ausgewählt und den industriellen Auftritt sowie die Grenzen der Veröffentlichung vorgegeben. Codex erstellte Anwendung, synthetische Daten, Modellumsetzung, Tests und Dokumentation und führte die lokalen Prüfungen aus.
 
-Öffentlich sind ausschließlich diese Präsentation und ausgewählte Bildschirmansichten. Quellcode, Datensätze, Modellartefakte und die private Entwicklungshistorie liegen außerhalb dieses Repositorys. [Rechtehinweis](../RIGHTS.md).
+Die Fallstudie beschreibt dieses neue Projekt. Meine frühere Arbeit in der Fertigung ist der fachliche Hintergrund, aber kein Nachweis für die Zuverlässigkeit dieses Prototyps an einer echten Linie.
+
+Öffentlich sind die Präsentation und ausgewählte Bildschirmansichten. Quellcode, Datensätze, Modellartefakte und Entwicklungshistorie bleiben privat. [Rechtehinweis](../RIGHTS.md).

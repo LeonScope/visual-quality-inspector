@@ -4,9 +4,9 @@
 
 # Scope Vision
 
-### Visual inspection. Visible anomalies. Recorded decisions.
+### Finding scratches and missing holes in an image
 
-A local inspection console for a fictional metal plate. The image model checks scratches and missing holes, highlights anomalous regions and hands the result over to human review. Built by **LeonScope** with AI assistance as an independent portfolio project.
+Scope Vision checks generated images of a metal plate for scratches and missing holes. It shows the original image alongside the areas the model finds unusual. A person can then review the result and save their assessment. The project builds on my experience with camera-based quality inspection; the application was developed from scratch with AI assistance.
 
 | APPLICATION | INSPECTION SETUP | PROJECT STATUS |
 | :--- | :--- | :--- |
@@ -20,13 +20,13 @@ A local inspection console for a fictional metal plate. The image model checks s
 
 ![Industrial Scope Vision console showing the original image, computed anomaly map, measured score and human review](assets/inspection-desktop.png)
 
-**Inspection shown: a missing hole.** The original image and computed anomaly map sit side by side. The measured score and human assessment occupy distinct panels on the right, with the decision preserved in the inspection record below. This image comes from the separate presentation split.
+**The example has a missing hole.** The original is on the left, beside the computed anomaly map. The score and human assessment are on the right, with both recorded separately below. Screenshots use their own presentation images, separate from training and testing.
 
 | 01 · Image input | 02 · Model analysis | 03 · Human review |
 | :--- | :--- | :--- |
 | Choose a synthetic example or local PNG/JPEG. Change lighting as an inspection variant. | Compute the anomaly map, display the index and account for capture conditions. | Record acceptance, rejection or further review. Export the report as JSON/CSV. |
 
-Own uploads always require human review. The anomaly index expresses distance relative to a calibrated threshold; it is not a probability or a manufacturing release. The overlay roughly indicates regions, not a measured defect boundary.
+Uploaded images always require a person’s review. The anomaly index relates the score to the calibrated threshold; it is not a probability or permission to release a part. The overlay indicates a rough location rather than measuring the defect.
 
 ## 02 / Inspection archive and model validation
 
@@ -68,11 +68,11 @@ The original image, anomaly map, score and assessment follow vertically on a pho
 
 Results apply to the project's own synthetic sample set. They do not establish reliability on real production lines or general superiority over simpler methods. The CNN is not fine-tuned; learning here means fitting normal-feature distributions. [Evaluation method, lighting variants and limits](docs/VERIFICATION.md).
 
-### Design and engineering decisions
+### Why the interface is arranged this way
 
-The image workspace is central. A horizontal toolbar, a state-aware process strip and distinct measurement fields support the workflow. Documented interfaces from Cognex, MVTec and SensoPart informed the industry research; the design and cover illustration are original. [Design references and implementation](docs/DESIGN-NOTES.md).
+The original and result need to be easy to compare, so the images take up most of the inspection view. Measurements and review controls sit beside them. A progress strip shows which steps are complete. Documented interfaces from Cognex, MVTec and SensoPart informed the layout; the [design notes](docs/DESIGN-NOTES.md) link to those references and explain the choices.
 
-The project draws on LeonScope's experience with robotics and camera-based quality inspection. It uses no employer images, customer records, industrial drawings or previous employer source code. No camera, robot or production line is connected. There is no public deployment, executable package, dataset/model download or public application CI.
+Scope Vision contains no images, drawings, data or source from previous employers or clients. No camera or robot is connected. The application runs locally; there is no public demo, software package, dataset or model download, or GitHub application test run.
 
 ---
 

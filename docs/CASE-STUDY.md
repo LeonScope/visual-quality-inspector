@@ -2,13 +2,13 @@
 
 **English** · [Deutsch](CASE-STUDY.de.md) · [Project](../README.md)
 
-## Problem and scope
+## The inspection task
 
-A useful visual inspection tool needs more than a model score. Someone must see which image was inspected, understand the highlighted area, recognize uncertain capture conditions and document a decision without losing the original evidence.
+Scope Vision examines images of a fictional metal plate from a fixed perspective. The generated images contain two defect types: a scratch and a missing hole. Position, texture and brightness vary slightly.
 
-Scope Vision implements this complete workflow for a fictional metal plate in a fixed perspective. Two deliberately visible defect types are built into synthetic examples: a scratch and a missing hole. Small variations in position, texture and brightness prevent every image from being identical. This is a controlled demonstration, not a collection of factory photographs.
+The interface places the original beside the computed overlay so a reviewer can compare the model score with the image and save a separate assessment. It also shows warnings about capture conditions.
 
-The project draws on LeonScope's experience with robotics and camera-based quality inspection. It was newly implemented with AI assistance and uses no employer assets or customer records. The public evidence concerns this implementation only.
+The subject comes from my experience with robotics and camera-based quality inspection. The application and images were created for this project. No factory photographs, employer assets or customer records are used.
 
 ## From image to recorded decision
 
@@ -32,9 +32,9 @@ The history retains the latest 100 inspections and at most 50 assessments per in
 
 The camera perspective is fixed, so a spatial model can compare each image region with normal examples from the same position. The implementation extracts frozen pretrained ResNet18 features, combines three feature stages and fits regularized Gaussian distributions to normal patch features. At inference, distance from those distributions produces an anomaly map and an image score.
 
-This approach is inspired by [PaDiM's patch-distribution method](https://anomalib.readthedocs.io/en/stable/markdown/guides/reference/models/image/padim.html). Scope Vision uses its own compact configuration and evaluation; it is not claimed as a reproduction of the paper or an Anomalib benchmark. The feature extractor is the official [TorchVision ResNet18 IMAGENET1K_V1 model](https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.resnet18.html). The CNN is not fine-tuned; learning here means fitting the normal-feature distributions.
+This approach is inspired by [PaDiM's patch-distribution method](https://anomalib.readthedocs.io/en/stable/markdown/guides/reference/models/image/padim.html). Scope Vision uses its own compact configuration and evaluation; it does not reproduce every detail of the paper and is not an Anomalib benchmark. The feature extractor is the official [TorchVision ResNet18 IMAGENET1K_V1 model](https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.resnet18.html). The CNN is not fine-tuned; learning here means fitting the normal-feature distributions.
 
-Inference receives the image pixels only. Example descriptions and synthetic defect masks are not provided to the detector. The displayed overlay is a coarse indication of anomalous regions, not a measured defect boundary. No segmentation accuracy is claimed.
+Inference receives the image pixels only. Example descriptions and synthetic defect masks are not provided to the detector. The displayed overlay is a coarse indication of anomalous regions, not a measured defect boundary. The accuracy of the defect boundary has not been measured.
 
 ## Decisions visible to the operator
 
@@ -46,7 +46,7 @@ Capture checks look for unexpected aspect ratio, brightness and contrast. They c
 
 ## Industrial operator interface
 
-A horizontal toolbar leads to inspection, records and model validation. The original and anomaly map share a dark image workspace; measured score and human review remain separate. A state-aware process strip shows progress from image input to recorded assessment. Graphite, steel gray and signal orange establish an original industrial visual language. [Manufacturer references and design decisions](DESIGN-NOTES.md).
+A horizontal toolbar leads to inspection, records and model validation. The original and anomaly map share a dark image workspace; measured score and human review remain separate. The progress strip shows whether an image has been selected, analyzed and reviewed. The interface uses graphite, steel gray and orange. [Manufacturer references and design decisions](DESIGN-NOTES.md).
 
 ## Evaluation decisions
 
@@ -60,10 +60,12 @@ Lighting stress uses paired variants of the same held-out scenes. These observat
 
 The Python API and React interface run on loopback. Model parameters and images stay local. Uploaded PNG/JPEG files are bounded by encoded size and dimensions, decoded and stripped of metadata. Host/origin checks restrict requests; one inference can run at a time. The UI is checked at desktop and mobile sizes.
 
-This is a single-user prototype without production authentication, camera acquisition, robot control, deployment monitoring or an industrial acceptance process. The next meaningful validation step would be a separately authorized real-image study with controlled capture conditions, new unseen test batches and an appropriate acceptance specification.
+The prototype is intended for one person on a local machine. Production authentication, camera capture, robot control and deployment monitoring are not implemented, and it has not undergone industrial acceptance testing. Further evaluation would need real images under controlled capture conditions, new unseen test batches and defined acceptance criteria.
 
-## Portfolio contribution
+## My role and the use of AI
 
-The demonstrated work includes problem framing, a synthetic data specification, a fitted anomaly detector, calibration and baseline comparison, local API/storage, a responsive inspection workflow, automated checks and bilingual documentation. Quoted results are local observations. No client project, real factory rollout or autonomous manufacturing decision is implied.
+I selected the subject for my portfolio and set the industrial design direction and publication limits. Codex generated the application, synthetic data, model implementation, tests and documentation and ran the local checks.
 
-Only this presentation and selected screenshots are public. Source code, datasets, model artifacts and private development history remain outside this repository. [Rights notice](../RIGHTS.md).
+This case study describes the new project. My earlier manufacturing work provides the background, but does not establish that this prototype is reliable on a real production line.
+
+The presentation and selected screenshots are public. Source code, datasets, model artifacts and development history remain private. [Rights notice](../RIGHTS.md).

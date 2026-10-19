@@ -2,11 +2,11 @@
 
 [English](VERIFICATION.md) · **Deutsch** · [Projekt](../README.de.md)
 
-Lokal beobachtet am **18. Oktober 2026**. Die Prüfungen wurden im Rahmen der Entwicklung durchgeführt. Sie sind keine unabhängige Zertifizierung und keine öffentliche CI. Quellcode und Modell-/Datenpaket bleiben privat; allein aus dieser öffentlichen Präsentation lassen sich die Prüfungen daher nicht wiederholen.
+Die Tests liefen während der Entwicklung am **18. Oktober 2026** lokal. Sie wurden weder von einer unabhängigen Prüfstelle noch über öffentliche CI ausgeführt. Für eine Wiederholung wären der private Quellcode sowie Modell- und Datendateien erforderlich.
 
 ## Prüfung der Anwendung
 
-Die industrielle Oberflächenrevision wurde erneut in der separaten lokalen Prüfkopie geprüft. Der Quellstand wurde vom zuvor verifizierten Commit vorgezogen; Abhängigkeiten wurden weder ergänzt noch geändert. Dieselben 46 Python-Prüfungen und acht Browserabläufe liefen erneut, einschließlich Zustandsprüfungen des Ablaufstreifens. Modell- und Auswertungsartefakte behielten ihre ursprünglichen Prüfsummen. Die frühere Prüfung nach frischer Installation bleibt als historischer Nachweis bestehen; für diese Revision wurden die Abhängigkeiten nicht erneut installiert.
+Nach der Neugestaltung der Oberfläche wurde die getrennte Testkopie auf den neuen Quellstand aktualisiert. Dieselben 46 Python-Tests und acht Browserabläufe bestanden erneut, einschließlich der Prüfung des Ablaufstreifens. Modell- und Auswertungsdateien behielten ihre ursprünglichen Prüfsummen. Die installierten Abhängigkeiten wurden unverändert weiterverwendet; die frühere Neuinstallation wurde dabei nicht wiederholt.
 
 | Prüfung | Beobachtetes Ergebnis |
 | --- | --- |
@@ -22,11 +22,11 @@ Die industrielle Oberflächenrevision wurde erneut in der separaten lokalen Prü
 
 Umgebung: macOS 26.6 auf arm64, Python 3.12.14, Node.js 24.19.0, Chrome 155.0.8059.84. Die Modellberechnung verwendet die CPU mit zwei PyTorch-Threads. Die Paketversionen sind privat festgehalten, darunter PyTorch 2.14.1 und TorchVision 0.29.1.
 
-Die Python-Prüfung meldet einen Hinweis von Starlette zum künftig abzulösenden httpx-Testclient; alle 46 Prüfungen bestehen. Der Hinweis wird dokumentiert und nicht als fehlgeschlagene Anwendungsanfrage ausgelegt.
+Die Python-Prüfung meldet einen Hinweis von Starlette zum künftig abzulösenden httpx-Testclient; alle 46 Prüfungen bestehen. Der Hinweis betrifft den Testclient und führte zu keinem fehlgeschlagenen Anwendungstest.
 
 Die acht Browserabläufe prüfen echte bildabhängige Auswertung; ergänzende Bewertungen und Downloads; Lichtänderungen; lokale Uploads; bestätigte/abgebrochene Löschung; Filtern und Wiederöffnen im Verlauf; Modellnachweise mit Präsentationsansichten; sowie den Ablauf bei 390 Pixeln Breite ohne horizontales Überlaufen.
 
-Die Python-Prüfungen behandeln Datentrennung und Artefaktintegrität, Bindung der festgelegten Ergebnisse, echte Reaktion auf Bildänderungen, Entscheidungszonen, Aufnahmebedingungen, Speicherung, Aufbewahrungsgrenzen und vollständige Löschung, Bewertungslimits, Eingabeprüfung, fremde Herkunft, Schutz privater Dateien, fehlgeschlagene/gleichzeitige Auswertung, Entfernen von Bildmetadaten und CSV-Formelbehandlung. Das sind begrenzte Tests, kein Penetrationstest und keine Sicherheitszertifizierung für den Produktivbetrieb.
+Die Python-Prüfungen behandeln Datentrennung und Artefaktintegrität, Bindung der festgelegten Ergebnisse, Reaktion auf veränderte Bildinhalte, Entscheidungszonen, Aufnahmebedingungen, Speicherung, Aufbewahrungsgrenzen und vollständige Löschung, Bewertungslimits, Eingabeprüfung, fremde Herkunft, Schutz privater Dateien, fehlgeschlagene/gleichzeitige Auswertung, Entfernen von Bildmetadaten und CSV-Formelbehandlung. Das sind begrenzte Tests, kein Penetrationstest und keine Sicherheitszertifizierung für den Produktivbetrieb.
 
 ## Getrennte Datenmengen
 
@@ -56,7 +56,7 @@ Die Grenze stand vor der Testauswertung fest. Der gespeicherte Bericht ist an Mo
 
 Beide Fehlerarten wurden in jeweils **60 von 60** Testbildern erkannt. Der einfache Grauwertvergleich erkannte **117 von 120** Fehlern, übersah **3** und erzeugte **0 von 60** Fehlalarmen. Die jeweilige Grenze wurde an der Kalibrierung festgelegt, nicht an diesem Test.
 
-Oberflächeneinstufung bei Standardlicht: 60 unauffällig, 120 auffällig, 0 manuelle Prüfungen. Das ist eine endliche Messung an einer bewusst begrenzten synthetischen Aufgabe. Kein beobachteter Fehler bedeutet keine gesicherte Fehlerfreiheit für zukünftige Bilder. Die räumliche Genauigkeit der Markierungen wurde nicht quantitativ ausgewertet.
+Oberflächeneinstufung bei Standardlicht: 60 unauffällig, 120 auffällig, 0 manuelle Prüfungen. Diese Ergebnisse gelten für den begrenzten Satz erzeugter Bilder. Bei zukünftigen Bildern können trotzdem Fehler auftreten. Wie genau die Markierungen den Fehler räumlich treffen, wurde nicht vermessen.
 
 ## Gepaarte Lichtprüfungen
 
@@ -65,7 +65,7 @@ Oberflächeneinstufung bei Standardlicht: 60 unauffällig, 120 auffällig, 0 man
 | Weniger Licht | 180 / 180 | 120 / 120 | 0 / 60 |
 | Zusätzlicher Lichtreflex | 110 / 180 | 120 / 120 | 0 / 60 |
 
-Dies sind **dieselben 180 Testszenen** mit zwei Lichtveränderungen, keine 360 zusätzlichen unabhängigen Szenen. Das rohe Modell bleibt bei diesen Varianten korrekt, während die Aufnahmeprüfung einige oder alle Bilder an eine Person übergibt. Die 70 Reflexvarianten ohne Prüfhinweis zeigen, dass diese Prüfung nicht jede Lichtänderung vollständig erkennt. Daraus folgt keine Robustheitszusage für beliebige Beleuchtung.
+Dies sind **dieselben 180 Testszenen** mit zwei Lichtveränderungen, keine 360 zusätzlichen unabhängigen Szenen. Das rohe Modell bleibt bei diesen Varianten korrekt, während die Aufnahmeprüfung einige oder alle Bilder an eine Person übergibt. Die 70 Reflexvarianten ohne Prüfhinweis zeigen, dass diese Prüfung nicht jede Lichtänderung vollständig erkennt. Das Verhalten unter anderen Lichtbedingungen ist damit noch nicht geprüft.
 
 ## Laufzeit und messbare Grenzen
 
@@ -73,7 +73,7 @@ Bei der ursprünglichen lokalen CPU-Auswertung betrug die reine Modellberechnung
 
 ![Nachweisansicht mit Verwechslungsmatrix, Vergleichsverfahren und gepaarten Lichtprüfungen](../assets/evaluation-desktop.png)
 
-## Grenze der Veröffentlichung
+## Veröffentlichte Unterlagen
 
 Dieses Repository enthält zweisprachige Dokumentation, ein eigenes Titelmotiv, vier ausgewählte Bildschirmansichten und einen Rechtehinweis. Es hat eine eigene Präsentationshistorie. Anwendungscode, fertiger Anwendungsbuild, ausführbare Pakete, Trainings-/Kalibrierungs-/Testbilder, Modellparameter, Gewichte, private Protokolle und Kunden-/Arbeitgeberdaten sind nicht enthalten. Die Plattenbilder innerhalb der Screenshots stammen ausschließlich aus den Präsentationsbeispielen.
 

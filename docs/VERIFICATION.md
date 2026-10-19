@@ -2,11 +2,11 @@
 
 **English** · [Deutsch](VERIFICATION.de.md) · [Project](../README.md)
 
-Observed locally on **18 October 2026**. These are author-run checks, not independent certification or public CI results. Source code and the model/data bundle are private, so this public presentation alone cannot reproduce them.
+These tests ran locally during development on **18 October 2026**. They were not run by an independent testing body or through public CI. Repeating them requires the private source, model and data files.
 
 ## Application verification
 
-The industrial interface revision was checked again in the separate local checkout. Its source was fast-forwarded from the previously verified commit; no dependencies were added or changed. The same 46 Python checks and eight browser workflows were rerun, including process-strip state checks. The frozen model and evaluation artifacts retained their original checksums. The earlier fresh-install verification remains historical evidence; this revision did not repeat dependency installation.
+After the industrial interface redesign, the separate test copy was updated to the new source version. The same 46 Python tests and eight browser workflows passed again, including checks of the progress strip. Model and evaluation files kept their original checksums. Installed dependencies were reused without changes; the earlier clean-install results still refer to that earlier run.
 
 | Check | Observed result |
 | --- | --- |
@@ -22,11 +22,11 @@ The industrial interface revision was checked again in the separate local checko
 
 Environment: macOS 26.6 on arm64, Python 3.12.14, Node.js 24.19.0, Chrome 155.0.8059.84. Model inference uses CPU with two PyTorch threads. Dependency versions are recorded privately, including PyTorch 2.14.1 and TorchVision 0.29.1.
 
-The Python suite emits an upstream Starlette deprecation warning about its httpx-based test client; the 46 checks pass. This warning is recorded rather than treated as a failed application request.
+The Python suite emits an upstream Starlette deprecation warning about its httpx-based test client; the 46 checks pass. It concerns the test client and did not cause an application test to fail.
 
 The eight browser workflows cover actual image-dependent inference; append-only review and downloads; lighting changes; local uploads; confirmed/cancelled deletion; history filtering and reopening; model evidence with presentation screenshots; and a 390-pixel mobile workflow without horizontal overflow.
 
-Python checks cover data lineage and artifact integrity, frozen-result replay bindings, genuine image sensitivity, decision bands, capture checks, persistence, retention/cascade deletion, review limits, input validation, hostile origins, private-file isolation, failed/concurrent inference, image metadata removal and CSV formula handling. These are bounded tests, not a penetration test or production security certification.
+Python checks cover data lineage and artifact integrity, frozen-result replay bindings, responses to changed image content, decision bands, capture checks, persistence, retention/cascade deletion, review limits, input validation, hostile origins, private-file isolation, failed/concurrent inference, image metadata removal and CSV formula handling. These are bounded tests, not a penetration test or production security certification.
 
 ## Data separation
 
@@ -56,7 +56,7 @@ The threshold was fixed before held-out evaluation. The stored report is bound t
 
 Both defect types were detected in **60 of 60** test images. The simple grayscale baseline detected **117 of 120** defects, missed **3**, and generated **0 of 60** false alarms. Each method's threshold was selected on calibration, not on this test.
 
-Standard-light UI triage: 60 unremarkable, 120 anomalous, 0 manual-review outcomes. This is a finite result on a deliberately constrained synthetic task. Zero observed errors does not establish a zero future error rate. Heat-map localization was not quantitatively evaluated.
+Standard-light UI triage: 60 unremarkable, 120 anomalous, 0 manual-review outcomes. These results apply to this limited set of generated images. Future images can still produce errors. The spatial accuracy of the heat map was not measured.
 
 ## Paired lighting observations
 
@@ -65,7 +65,7 @@ Standard-light UI triage: 60 unremarkable, 120 anomalous, 0 manual-review outcom
 | Reduced light | 180 / 180 | 120 / 120 | 0 / 60 |
 | Added glare | 110 / 180 | 120 / 120 | 0 / 60 |
 
-These are the **same 180 held-out scene seeds** with two lighting transformations, not 360 additional independent scenes. The raw model remains correct on these variants, while the capture gate diverts some or all images to a human. The 70 glare variants without a review flag demonstrate that the gate is not an exhaustive detector of all lighting changes. No robustness claim for arbitrary lighting follows.
+These are the **same 180 held-out scene seeds** with two lighting transformations, not 360 additional independent scenes. The raw model remains correct on these variants, while the capture gate diverts some or all images to a human. The 70 glare variants without a review flag demonstrate that the gate is not an exhaustive detector of all lighting changes. Behavior under other lighting conditions remains untested.
 
 ## Timing and observable limits
 
@@ -73,7 +73,7 @@ On the original local CPU evaluation, per-image model calculation measured **12.
 
 ![Evidence view showing confusion counts, baseline and paired lighting checks](../assets/evaluation-desktop.png)
 
-## Public/private boundary
+## Published material
 
 This repository contains bilingual documentation, an original cover illustration, four selected screenshots and a rights notice. It has a separate presentation history. It does not contain application source, an application build, executable packages, training/calibration/test images, model parameters, weights, private logs or customer/employer data. The screenshots' plate images come exclusively from the presentation examples.
 
